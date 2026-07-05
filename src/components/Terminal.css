@@ -1,0 +1,110 @@
+.terminal-container {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  font-family: var(--mono-font);
+  font-size: 0.9rem;
+  background-color: var(--terminal-bg);
+  border: 1px solid rgba(0, 242, 254, 0.2);
+}
+
+.terminal-header {
+  background-color: rgba(255, 255, 255, 0.03);
+  padding: 10px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.terminal-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.terminal-btn {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.terminal-btn.red { background-color: #ef4444; }
+.terminal-btn.yellow { background-color: #f59e0b; }
+.terminal-btn.green { background-color: #10b981; }
+
+.terminal-title {
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.terminal-body {
+  padding: 20px;
+  height: 320px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  color: #f8fafc;
+  text-align: left;
+}
+
+/* Custom Scrollbar for Terminal */
+.terminal-body::-webkit-scrollbar {
+  width: 6px;
+}
+.terminal-body::-webkit-scrollbar-track {
+  background: var(--terminal-bg);
+}
+.terminal-body::-webkit-scrollbar-thumb {
+  background: rgba(0, 242, 254, 0.3);
+  border-radius: 3px;
+}
+
+.terminal-welcome {
+  color: var(--text-secondary);
+}
+
+.terminal-output-line {
+  line-height: 1.5;
+  white-space: pre-wrap;
+}
+
+.terminal-input-line {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.terminal-prompt {
+  color: var(--terminal-text);
+  font-weight: bold;
+}
+
+.terminal-input {
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-family: var(--mono-font);
+  font-size: 0.9rem;
+  flex-grow: 1;
+  outline: none;
+}
+
+.terminal-help-grid {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.terminal-help-cmd {
+  color: var(--primary-neon);
+}
+
+.terminal-help-desc {
+  color: var(--text-secondary);
+}
