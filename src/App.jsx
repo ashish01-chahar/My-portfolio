@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Sun, Moon, Code2, Mail, ExternalLink, GraduationCap, Briefcase, Award } from 'lucide-react';
+import { Sun, Moon, Code2, Mail, ExternalLink, GraduationCap, Briefcase, Award, FileText } from 'lucide-react';
 import CanvasBackground from './components/CanvasBackground';
 import ContactDrawer from './components/ContactDrawer';
 import Home from './pages/Home';
 import Skills from './pages/Skills';
 import Certifications from './pages/Certifications';
 import Projects from './pages/Projects';
+import Resume from './pages/Resume';
 import './App.css';
 
 // Custom local SVG component for LinkedIn as brand icons are removed from lucide-react v1+
@@ -52,6 +53,8 @@ function App() {
         return <Certifications />;
       case 'projects':
         return <Projects />;
+      case 'resume':
+        return <Resume />;
       default:
         return <Home setActiveTab={setActiveTab} />;
     }
@@ -96,6 +99,12 @@ function App() {
                 onClick={() => setActiveTab('certifications')}
               >
                 Certifications
+              </button>
+              <button
+                className={`nav-link ${activeTab === 'resume' ? 'active' : ''}`}
+                onClick={() => setActiveTab('resume')}
+              >
+                Resume
               </button>
               
               <span className="nav-separator">|</span>
