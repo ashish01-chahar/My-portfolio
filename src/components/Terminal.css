@@ -108,3 +108,14 @@
 .terminal-help-desc {
   color: var(--text-secondary);
 }
+
+.terminal-link {
+  color: var(--primary-neon);
+  text-decoration: underline;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.terminal-link:hover {
+  opacity: 0.8;
+}

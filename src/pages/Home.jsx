@@ -4,6 +4,25 @@ import Terminal from '../components/Terminal';
 import './Home.css';
 import ashishPhoto from '../assets/ashish_photo.jpg';
 
+// Custom local SVG component for LinkedIn as brand icons are removed from lucide-react v1+
+const Linkedin = ({ size = 24, ...props }) => (
+  <svg
+    viewBox="0 0 24 24"
+    width={size}
+    height={size}
+    stroke="currentColor"
+    strokeWidth="2"
+    fill="none"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    {...props}
+  >
+    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+    <rect x="2" y="9" width="4" height="12"></rect>
+    <circle cx="4" cy="4" r="2"></circle>
+  </svg>
+);
+
 export default function Home({ setActiveTab }) {
   const [text, setText] = useState('');
   const [roleIndex, setRoleIndex] = useState(0);
@@ -83,7 +102,7 @@ export default function Home({ setActiveTab }) {
       {/* Coding Profiles Section */}
       <section style={{ margin: '60px 0' }}>
         <h2 className="section-title">Coding Profiles</h2>
-        <p className="section-desc">Connect with me on Github or follow my problem-solving journey on LeetCode.</p>
+        <p className="section-desc">Connect with me on Github, LinkedIn, or follow my problem-solving journey on LeetCode.</p>
         <div className="profiles-grid">
           <a
             href="https://github.com/ashish01-chahar"
@@ -115,6 +134,23 @@ export default function Home({ setActiveTab }) {
               <div className="profile-title">LeetCode Profile</div>
               <div className="profile-handle">@Ashish01234</div>
               <div className="profile-stat">DSA Problem Solving • Active Coder</div>
+            </div>
+            <ExternalLink size={16} style={{ marginLeft: 'auto', color: 'var(--text-secondary)' }} />
+          </a>
+
+          <a
+            href="https://www.linkedin.com/in/ashish1234chahar"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="glass-card profile-card linkedin"
+          >
+            <div className="profile-icon-wrapper">
+              <Linkedin size={28} />
+            </div>
+            <div className="profile-info">
+              <div className="profile-title">LinkedIn Profile</div>
+              <div className="profile-handle">@ashish1234chahar</div>
+              <div className="profile-stat">Professional Network • Connections</div>
             </div>
             <ExternalLink size={16} style={{ marginLeft: 'auto', color: 'var(--text-secondary)' }} />
           </a>

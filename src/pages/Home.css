@@ -150,6 +150,12 @@
   color: var(--text-heading);
 }
 
+.profile-card.linkedin .profile-icon-wrapper {
+  background: rgba(10, 102, 194, 0.1);
+  border: 1px solid rgba(10, 102, 194, 0.25);
+  color: #0a66c2;
+}
+
 .profile-card:hover .profile-icon-wrapper {
   transform: scale(1.1) rotate(5deg);
 }

@@ -8,6 +8,25 @@ import Certifications from './pages/Certifications';
 import Projects from './pages/Projects';
 import './App.css';
 
+// Custom local SVG component for LinkedIn as brand icons are removed from lucide-react v1+
+const Linkedin = ({ size = 24, ...props }) => (
+  <svg
+    viewBox="0 0 24 24"
+    width={size}
+    height={size}
+    stroke="currentColor"
+    strokeWidth="2"
+    fill="none"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    {...props}
+  >
+    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+    <rect x="2" y="9" width="4" height="12"></rect>
+    <circle cx="4" cy="4" r="2"></circle>
+  </svg>
+);
+
 function App() {
   const [activeTab, setActiveTab] = useState('home');
   const [theme, setTheme] = useState(localStorage.getItem('theme') || 'dark');
@@ -78,6 +97,36 @@ function App() {
               >
                 Certifications
               </button>
+              
+              <span className="nav-separator">|</span>
+              
+              <a
+                href="https://github.com/ashish01-chahar"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="nav-link nav-link-external"
+                title="GitHub Profile"
+              >
+                GitHub <ExternalLink size={12} style={{ marginLeft: 4 }} />
+              </a>
+              <a
+                href="https://leetcode.com/Ashish01234"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="nav-link nav-link-external"
+                title="LeetCode Profile"
+              >
+                LeetCode <ExternalLink size={12} style={{ marginLeft: 4 }} />
+              </a>
+              <a
+                href="https://www.linkedin.com/in/ashish1234chahar"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="nav-link nav-link-external"
+                title="LinkedIn Profile"
+              >
+                LinkedIn <ExternalLink size={12} style={{ marginLeft: 4 }} />
+              </a>
             </nav>
 
             <button
@@ -134,6 +183,15 @@ function App() {
               title="LeetCode Profile"
             >
               <Code2 size={20} />
+            </a>
+            <a
+              href="https://www.linkedin.com/in/ashish1234chahar"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="footer-social-link"
+              title="LinkedIn Profile"
+            >
+              <Linkedin size={20} />
             </a>
             <button
               onClick={() => setIsContactOpen(true)}

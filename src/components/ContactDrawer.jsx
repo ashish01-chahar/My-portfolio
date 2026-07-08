@@ -1,31 +1,59 @@
+import emailjs from '@emailjs/browser';
 import React, { useState } from 'react';
-import { X, Mail, Phone, MapPin, Send, CheckCircle2 } from 'lucide-react';
+import { X, Mail, Phone, MapPin, Send, CheckCircle2, AlertCircle } from 'lucide-react';
 import './ContactDrawer.css';
+
+// EmailJS public credentials (safe for client-side — these are public keys by design)
+const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID || 'service_lroawvq';
+const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || 'template_ewr4jsi';
+const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || 'UHQk62YbxnwGUtGZc';
 
 export default function ContactDrawer({ isOpen, onClose }) {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [errorMsg, setErrorMsg] = useState('');
 
   const handleChange = (e) => {
     setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.name || !formData.email || !formData.message) return;
 
     setIsSubmitting(true);
-    // Simulate API request delay
-    setTimeout(() => {
-      setIsSubmitting(false);
+    setErrorMsg('');
+
+    try {
+      await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        {
+          name: formData.name,
+          from_name: formData.name,
+          email: formData.email,
+          from_email: formData.email,
+          reply_to: formData.email,
+          message: formData.message,
+        },
+        { publicKey: EMAILJS_PUBLIC_KEY }
+      );
+
       setIsSuccess(true);
       setFormData({ name: '', email: '', message: '' });
-      // Reset success state after a few seconds
+
       setTimeout(() => {
         setIsSuccess(false);
       }, 5000);
-    }, 1500);
+    } catch (error) {
+      console.error('EmailJS Error:', error);
+      setErrorMsg(
+        error?.text || error?.message || 'Failed to send message. Please try again or email directly.'
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -126,6 +154,14 @@ export default function ContactDrawer({ isOpen, onClose }) {
                   disabled={isSubmitting}
                 />
               </div>
+
+              {/* Error message */}
+              {errorMsg && (
+                <div className="form-error-message">
+                  <AlertCircle size={16} />
+                  <span>{errorMsg}</span>
+                </div>
+              )}
 
               <button
                 type="submit"

@@ -31,14 +31,19 @@ export default function Terminal() {
       case 'help':
         response = [
           { type: 'output', text: 'Available commands:' },
-          { type: 'help', list: [
-            { cmd: 'about', desc: 'Read Ashish\'s professional summary' },
-            { cmd: 'skills', desc: 'View complete technical skill stack' },
-            { cmd: 'projects', desc: 'Display key project details and repositories' },
-            { cmd: 'education', desc: 'View academic and certification details' },
-            { cmd: 'socials', desc: 'Show Github, LeetCode, and LinkedIn links' },
-            { cmd: 'clear', desc: 'Clear the terminal output screen' }
-          ]}
+          {
+            type: 'help', list: [
+              { cmd: 'about', desc: 'Read Ashish\'s professional summary' },
+              { cmd: 'skills', desc: 'View complete technical skill stack' },
+              { cmd: 'projects', desc: 'Display key project details and repositories' },
+              { cmd: 'education', desc: 'View academic and certification details' },
+              { cmd: 'socials', desc: 'Show Github, LeetCode, and LinkedIn links' },
+              { cmd: 'github', desc: 'Open GitHub Profile in a new tab' },
+              { cmd: 'leetcode', desc: 'Open LeetCode Profile in a new tab' },
+              { cmd: 'linkedin', desc: 'Open LinkedIn Profile in a new tab' },
+              { cmd: 'clear', desc: 'Clear the terminal output screen' }
+            ]
+          }
         ];
         break;
       case 'about':
@@ -92,9 +97,30 @@ export default function Terminal() {
           { type: 'output', text: '=== SOCIAL PROFILES ===' },
           { type: 'output', text: '• GitHub:   https://github.com/ashish01-chahar' },
           { type: 'output', text: '• LeetCode: https://leetcode.com/Ashish01234' },
-          { type: 'output', text: '• LinkedIn: https://linkedin.com (Verify link in header)' },
+          { type: 'output', text: '• LinkedIn: https://www.linkedin.com/in/ashish1234chahar' },
           { type: 'output', text: '• Email:    chaharashish121@gmail.com' },
           { type: 'output', text: '• Phone:    +91 8267055192' }
+        ];
+        break;
+      case 'github':
+        window.open('https://github.com/ashish01-chahar', '_blank');
+        response = [
+          { type: 'output', text: 'Opening GitHub profile in a new tab...' },
+          { type: 'link', text: 'Link:', url: 'https://github.com/ashish01-chahar' }
+        ];
+        break;
+      case 'leetcode':
+        window.open('https://leetcode.com/Ashish01234', '_blank');
+        response = [
+          { type: 'output', text: 'Opening LeetCode profile in a new tab...' },
+          { type: 'link', text: 'Link:', url: 'https://leetcode.com/Ashish01234' }
+        ];
+        break;
+      case 'linkedin':
+        window.open('https://www.linkedin.com/in/ashish1234chahar', '_blank');
+        response = [
+          { type: 'output', text: 'Opening LinkedIn profile in a new tab...' },
+          { type: 'link', text: 'Link:', url: 'https://www.linkedin.com/in/ashish1234chahar' }
         ];
         break;
       case 'clear':
@@ -157,6 +183,12 @@ export default function Terminal() {
                     <span className="terminal-help-desc">{item.desc}</span>
                   </div>
                 ))}
+              </div>
+            );
+          } else if (line.type === 'link') {
+            return (
+              <div key={idx} className="terminal-output-line">
+                {line.text} <a href={line.url} target="_blank" rel="noopener noreferrer" className="terminal-link">{line.url}</a>
               </div>
             );
           } else {

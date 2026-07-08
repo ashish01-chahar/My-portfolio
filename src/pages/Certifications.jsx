@@ -1,8 +1,28 @@
-import React from 'react';
-import { GraduationCap, Award, CheckCircle, ShieldCheck } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { GraduationCap, Award, CheckCircle, ShieldCheck, X, Eye } from 'lucide-react';
 import './Certifications.css';
 
+import certPython from '../assets/cert_python.jpg';
+import certGenAI from '../assets/cert_generative_ai.jpg';
+
 export default function Certifications() {
+  const [selectedCert, setSelectedCert] = useState(null);
+
+  // Close modal on Escape key
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') setSelectedCert(null);
+    };
+    if (selectedCert) {
+      document.addEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = 'hidden';
+    }
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = '';
+    };
+  }, [selectedCert]);
+
   const educationTimeline = [
     {
       date: '2023 - 2027 (Expected)',
@@ -25,13 +45,15 @@ export default function Certifications() {
       title: 'Python Programming Language',
       provider: 'Mind Luster',
       date: '2026',
-      badge: 'Certified Professional'
+      badge: 'Certified Professional',
+      image: certPython
     },
     {
-      title: 'Generative AI Developer Course',
+      title: 'Generative AI for Beginners',
       provider: 'Simplilearn SkillUp',
       date: '2025',
-      badge: 'Specialist Certificate'
+      badge: 'Specialist Certificate',
+      image: certGenAI
     }
   ];
 
@@ -77,13 +99,25 @@ export default function Certifications() {
           </h2>
           <div className="certs-list">
             {certificationsList.map((cert, idx) => (
-              <div key={idx} className="glass-card cert-item-card">
+              <div
+                key={idx}
+                className="glass-card cert-item-card cert-clickable"
+                onClick={() => setSelectedCert(cert)}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => { if (e.key === 'Enter') setSelectedCert(cert); }}
+                title="Click to view certificate"
+              >
                 <div className="cert-icon-wrapper">
                   <Award size={22} />
                 </div>
                 <div className="cert-details">
                   <h3 className="cert-title">{cert.title}</h3>
                   <div className="cert-provider">{cert.provider} • <span className="cert-date">{cert.date}</span></div>
+                </div>
+                <div className="cert-view-hint">
+                  <Eye size={16} />
+                  <span>View</span>
                 </div>
                 <div className="badge" style={{fontSize: '0.75rem'}}>
                   {cert.badge}
@@ -106,6 +140,33 @@ export default function Certifications() {
           ))}
         </div>
       </div>
+
+      {/* Certificate Modal */}
+      {selectedCert && (
+        <div className="cert-modal-overlay" onClick={() => setSelectedCert(null)}>
+          <div className="cert-modal-content" onClick={(e) => e.stopPropagation()}>
+            <button
+              className="cert-modal-close"
+              onClick={() => setSelectedCert(null)}
+              aria-label="Close certificate viewer"
+            >
+              <X size={22} />
+            </button>
+            <div className="cert-modal-header">
+              <Award size={20} className="cert-modal-header-icon" />
+              <h3 className="cert-modal-title">{selectedCert.title}</h3>
+              <span className="cert-modal-provider">{selectedCert.provider} • {selectedCert.date}</span>
+            </div>
+            <div className="cert-modal-image-wrapper">
+              <img
+                src={selectedCert.image}
+                alt={`${selectedCert.title} Certificate`}
+                className="cert-modal-image"
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

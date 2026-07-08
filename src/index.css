@@ -243,6 +243,31 @@ h1, h2, h3, h4, h5, h6 {
   transform: scaleX(1);
 }
 
+.nav-separator {
+  color: var(--text-secondary);
+  opacity: 0.4;
+  margin: 0 4px;
+  font-weight: 300;
+  display: flex;
+  align-items: center;
+  user-select: none;
+}
+
+.nav-link-external {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.nav-link-external::after {
+  content: none !important;
+}
+
+.nav-link-external:hover {
+  color: var(--primary-neon);
+  text-shadow: 0 0 10px var(--primary-neon-glow);
+}
+
 /* Page Section Wrappers */
 .page-container {
   padding-top: 100px;
